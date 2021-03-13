@@ -22,17 +22,7 @@
       this.type = type
     }
   }
-// export default {
-//   name: 'Types',
-//   data(){
-//     return{
-//       type:'-' //
-//     }
-//   },
-//   methods:{
-//
-//
-// };
+
 </script>
 
 <style lang="scss" scoped>

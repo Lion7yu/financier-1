@@ -3,18 +3,16 @@
     <div class="navBar">
       <Icon class="leftIcon" name="left" @click="goBack"/>
       <span class="title">编辑标签</span>
-      <span class="rightIcon"></span>
+      <span class="rightIcon"/>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name"
+      <FormItem :value="currentTag.name"
                 @update:value="update"
-                field-name="标签名"
-                placeholder="请输入新的标签名"/>
+                field-name="标签名" placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
       <Button @click="remove">删除标签</Button>
     </div>
-
   </Layout>
 </template>
 
@@ -23,33 +21,35 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
-import store from '@/store/index2';
 
 @Component({
-  components: {Button, FormItem}
+  components: {Button, FormItem},
 })
 export default class EditLabel extends Vue {
-  tag = store.findTag(this.$route.params.id);
+  get currentTag() {
+    return this.$store.state.currentTag;
+  }
 
   created() {
-    if (!this.tag) {
+    const id = this.$route.params.id;
+    this.$store.commit('fetchTags');
+    this.$store.commit('setCurrentTag', id);
+    if (!this.currentTag) {
       this.$router.replace('/404');
     }
   }
 
   update(name: string) {
-    if (this.tag) {
-      store.updateTag(this.tag.id, name);
+    if (this.currentTag) {
+      this.$store.commit('updateTag', {
+        id: this.currentTag.id, name
+      });
     }
   }
 
   remove() {
-    if (this.tag) {
-      if (store.removeTag(this.tag.id)) {
-        this.$router.back();
-      } else {
-        window.alert('删除失败');
-      }
+    if (this.currentTag) {
+      this.$store.commit('removeTag', this.currentTag.id);
     }
   }
 
@@ -64,35 +64,28 @@ export default class EditLabel extends Vue {
   text-align: center;
   font-size: 16px;
   padding: 12px 16px;
-  background: #0C78FF;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #ffffff;
-
   > .title {
   }
-
   > .leftIcon {
     width: 24px;
     height: 24px;
-    color: #ffffff;
   }
-
   > .rightIcon {
     width: 24px;
     height: 24px;
   }
 }
-
 .form-wrapper {
-  background: #ffffff;
+  background: white;
   margin-top: 8px;
 }
-
 .button-wrapper {
   text-align: center;
   padding: 16px;
-  margin-top: 28px;
+  margin-top: 44-16px;
 }
 </style>

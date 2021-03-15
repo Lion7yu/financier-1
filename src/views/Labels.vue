@@ -8,8 +8,11 @@
         <Icon name="right"/>
       </router-link>
     </div>
-    <div class="newTag-wrapper">
-      <Button class="newTag" @click="createTag">新建标签</Button>
+    <div class="createTag-wrapper">
+      <Button class="createTag"
+              @click="createTag">
+        新建标签
+      </Button>
     </div>
   </Layout>
 </template>
@@ -19,19 +22,20 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
-import store from '@/store/index2';
+import {mixins} from 'vue-class-component';
+import TagHelper from '@/mixins/TagHelper';
+
 
 @Component({
-  components: {Button}
+  components: {Button},
 })
-export default class Labels extends Vue {
-  tags = store.tagList;
+export default class Labels extends mixins(TagHelper) {
+  get tags() {
+    return this.$store.state.tagList;
+  }
 
-  createTag() {
-    const name = window.prompt('请输入标签名');
-    if (name){
-      store.createTag(name)
-    }
+  beforeCreate() {
+    this.$store.commit('fetchTags');
   }
 }
 </script>
@@ -41,31 +45,27 @@ export default class Labels extends Vue {
   background: white;
   font-size: 16px;
   padding-left: 16px;
-
   > .tag {
     min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #e6e5e8;
-
+    border-bottom: 1px solid #E6E6E6;
     svg {
-      width: 24px;
-      height: 24px;
+      width: 18px;
+      height: 18px;
       color: #666;
       margin-right: 16px;
     }
   }
 }
-
-.newTag {
-  background: #0C78FF;
+.createTag {
+  background: #767676;
   color: white;
   border-radius: 4px;
   border: none;
   height: 40px;
   padding: 0 16px;
-
   &-wrapper {
     text-align: center;
     padding: 16px;
@@ -73,3 +73,4 @@ export default class Labels extends Vue {
   }
 }
 </style>
+

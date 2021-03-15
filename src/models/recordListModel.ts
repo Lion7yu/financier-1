@@ -1,13 +1,18 @@
 const localStorageKeyName = 'recordList';
 const recordListModel = {
-    clone(data: RecordItem[] | RecordItem){
-        return JSON.parse(JSON.stringify(data))
-    },
-  fetch() {
-    return JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
+  data: [] as RecordItem[],
+  clone(data: RecordItem[] | RecordItem) {
+    return JSON.parse(JSON.stringify(data));
   },
-  save(data: RecordItem[]) {
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
+  fetch() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    this.data = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem;
+    return this.data;
+  },
+  save() {
+    window.localStorage.setItem(localStorageKeyName,
+      JSON.stringify(this.data));
   }
 };
 export default recordListModel;

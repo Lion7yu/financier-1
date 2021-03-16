@@ -1,14 +1,18 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
+const map: { [key: string]: string } = {
+  'tag name duplicated': '请勿创建重复标签'
+};
+
 @Component
 export class TagHelper extends Vue {
   createTag() {
     const name = window.prompt('请输入标签名');
     if (!name) { return window.alert('标签名不能为空'); }
     this.$store.commit('createTag', name);
-    if (this.$store.state.createTagErroe){
-      window.alert(this.$store.state.createTagErroe);
+    if (this.$store.state.createTagError) {
+      window.alert(map[this.$store.state.createTagErroe.message] || '出现未知错误');
     }
   }
 }

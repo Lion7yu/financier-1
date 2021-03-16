@@ -56,7 +56,7 @@ export default class Labels extends mixins(TagHelper) {
   }
 }
 .createTag {
-  background: #767676;
+  background: #0C78FF;
   color: white;
   border-radius: 4px;
   border: none;

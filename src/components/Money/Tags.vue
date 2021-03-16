@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+
+import {Component} from 'vue-property-decorator';
 import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
 
@@ -55,8 +55,9 @@ export default class Tags extends mixins(TagHelper) {
     display: flex;
     flex-wrap: wrap;
     > li {
-      $bg: #D9D9D9;
+      $bg: #0C78FF;
       background: $bg;
+      color: #fff;
       $h: 24px;
       height: $h;
       line-height: $h;
@@ -65,7 +66,7 @@ export default class Tags extends mixins(TagHelper) {
       margin-right: 12px;
       margin-top: 4px;
       &.selected {
-        background: darken($bg, 50%);
+        background: rgb(254,112,65);
         color: white;
       }
     }

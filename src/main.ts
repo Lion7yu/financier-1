@@ -27,11 +27,12 @@ window.onload = function () {
 if (document.documentElement.clientWidth > 500) {
   window.alert('使用手机访问页面体验更佳哦');
   const img = document.createElement('img');
-  img.src = '/qrcode.png';
+  img.src = './qrcode.png';
+  img.style.height= '200px';
+  img.style.width ='200px';
   img.style.position = 'fixed';
-  img.style.left = '50%';
-  img.style.top = '50%';
-  img.style.transform='translate(-50%,-50%)';
+  img.style.right = '10%';
+  img.style.top = '10%';
   img.style.boxShadow= '0 0 10px rgba(0,0,0,0.25);'
   document.body.appendChild(img);
 }

@@ -20,5 +20,8 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
+#app{
+  max-width: 500px;
+  margin: 0 auto;
+}
 </style>
